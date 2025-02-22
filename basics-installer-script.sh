@@ -29,7 +29,7 @@ echo "Creating Portainer volume..."
 docker volume create portainer_data
 
 # Installing Tailscale
-echo "Installing Tailscale"
+echo "Installing Tailscale..."
 curl -fsSL https://tailscale.com/install.sh | sh
 
 # Install ZeroTier
