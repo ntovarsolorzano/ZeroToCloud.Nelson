@@ -28,6 +28,14 @@ docker-compose --version
 echo "Creating Portainer volume..."
 docker volume create portainer_data
 
+# Installing Tailscale
+echo "Installing Tailscale"
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Install ZeroTier
+echo "Installing ZeroTier..."
+curl -s https://install.zerotier.com | sudo bash
+
 # Run Portainer container
 echo "Starting Portainer..."
 docker run -d -p 9000:9000 \
