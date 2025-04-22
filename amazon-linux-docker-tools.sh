@@ -1,46 +1,66 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Exit on any error
 set -e
 
-# Update packages
-echo "Updating packages..."
-sudo yum update -y
+# Detect package manager
+if command -v dnf &>/dev/null; then
+  PKG="dnf"
+elif command -v yum &>/dev/null; then
+  PKG="yum"
+else
+  echo "ERROR: Neither dnf nor yum found. Exiting." >&2
+  exit 1
+fi
 
-# Install Docker via Amazon Extras
+echo "Using $PKG for package management"
+
+# Update system
+echo "Updating packages..."
+sudo $PKG update -y
+
+# Install prerequisites for Docker installer (curl comes in handy)
+echo "Ensuring curl is installed..."
+sudo $PKG install -y curl
+
+# Install Docker via the official get.docker.com script
 echo "Installing Docker..."
-sudo amazon-linux-extras install docker -y
+curl -fsSL https://get.docker.com | sudo sh
+
+# Enable & start Docker service
+echo "Enabling and starting Docker..."
 sudo systemctl enable docker
 sudo systemctl start docker
 
 # Add current user to docker group
-echo "Adding user to docker group..."
+echo "Adding $USER to docker group..."
 sudo usermod -aG docker $USER
 
 # Install Docker Compose
 DOCKER_COMPOSE_VERSION="v2.31.0"
 echo "Installing Docker Compose ${DOCKER_COMPOSE_VERSION}..."
-sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
-     -o /usr/local/bin/docker-compose
+sudo curl -fsSL \
+  "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
+  -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-# Verify Docker Compose installation
-echo "Verifying Docker Compose version..."
+# Verify Docker Compose
+echo "Verifying Docker Compose installation..."
 docker-compose --version
 
-# Create volume for Portainer
-echo "Creating Portainer volume..."
+# Create Portainer data volume
+echo "Creating Portainer data volume..."
 docker volume create portainer_data
 
 # Install Tailscale
 echo "Installing Tailscale..."
-curl -fsSL https://tailscale.com/install.sh | sh
+curl -fsSL https://tailscale.com/install.sh | sudo sh
 
 # Install ZeroTier
 echo "Installing ZeroTier..."
-curl -s https://install.zerotier.com | sudo bash
+curl -fsSL https://install.zerotier.com | sudo bash
 
-# Run Portainer container
+# Launch Portainer
 echo "Starting Portainer..."
 docker run -d \
   --name portainer \
@@ -50,7 +70,11 @@ docker run -d \
   -v portainer_data:/data \
   portainer/portainer-ce
 
-echo
-echo "🎉 Installation complete!"
-echo "→ Portainer is now running on http://localhost:9000"
-echo "→ You may need to log out and log back in for Docker group changes to take effect."
+cat <<‑EOF
+
+🎉 All set!
+
+• Portainer → http://localhost:9000  
+• Log out/in for your Docker‑group membership to take effect  
+
+EOF
