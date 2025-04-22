@@ -5,7 +5,7 @@ set -e
 
 # Update package lists
 echo "Updating package lists..."
-sudo apt-get update
+sudo apt-get update -y
 
 # Install Docker
 echo "Installing Docker..."
