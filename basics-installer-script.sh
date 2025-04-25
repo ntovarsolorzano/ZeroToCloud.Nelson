@@ -22,7 +22,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # Verify Docker Compose installation
 echo "Verifying Docker Compose version..."
-docker-compose --version
+docker-compose --version || { echo "Docker Compose installation failed"; exit 1; }
 
 # Create volume for Portainer
 echo "Creating Portainer volume..."
