@@ -21,14 +21,14 @@ fi
 
 
 echo "===== Updating APT and installing required tools..."
-apt update
+apt update -y
 apt install -y wget curl
 
 echo "===== Installing Snap..."
 apt install -y snapd
 
 echo "===== Installing Flakpak..."
-sudo apt install flatpak -y
+apt install flatpak -y
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 echo "===== Installing XFCE desktop environment..."
