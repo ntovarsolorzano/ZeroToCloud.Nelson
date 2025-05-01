@@ -7,4 +7,7 @@ Bash script for debian-based Linux to install Docker, Docker-Compose, and Portai
 ### One-line Run-Script for Red Hat distributions
 `curl -sSL https://raw.githubusercontent.com/ntovarsolorzano/docker-installer-for-clouds/main/amazon-linux-docker-tools.sh | sudo bash `
 
+### One-line Run-Script for NoMachine all component installer
+`curl -sSL https://raw.githubusercontent.com/ntovarsolorzano/docker-installer-for-clouds/main/NoMachine-on-freshly-debian-ubuntu-machines.sh | sudo bash `
+
 Enjoy.
