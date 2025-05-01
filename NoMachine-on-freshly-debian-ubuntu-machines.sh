@@ -49,5 +49,6 @@ apt autoremove -y
 
 echo "Installation complete!"
 echo "You can now connect via NoMachine client to your server's IP."
+echo "Do not forget to open port 4000 TCP and UDP."
 
 echo "Your IP is: $(curl -4 -sS ifconfig.io)"
