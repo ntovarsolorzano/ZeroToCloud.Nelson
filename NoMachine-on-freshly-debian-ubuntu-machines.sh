@@ -10,6 +10,16 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+read -p "Do you want to install keyboard-configuration? (yes/no) [yes]: " reply
+reply=${reply:-yes}
+
+if [[ "$reply" == "yes" || "$reply" == "y" ]]; then
+    sudo DEBIAN_FRONTEND=noninteractive apt install -y keyboard-configuration
+else
+    echo "Skipped keyboard-configuration installation."
+fi
+
+
 echo "Updating APT and installing required tools..."
 apt update
 apt install -y wget curl
