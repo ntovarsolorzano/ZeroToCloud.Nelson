@@ -20,4 +20,9 @@ With this script, I just need to download 'NoMachine' for my current PC, set the
 
 `curl -sSL https://raw.githubusercontent.com/ntovarsolorzano/docker-installer-for-clouds/main/NoMachine-on-freshly-debian-ubuntu-machines.sh | sudo bash `
 
+---
+
+### One-line Run-Script to Install Winehq in Debian
+`curl -sSL https://raw.githubusercontent.com/ntovarsolorzano/docker-installer-for-clouds/main/installing.winehd.debian.sh | sudo bash `
+
 Enjoy.
