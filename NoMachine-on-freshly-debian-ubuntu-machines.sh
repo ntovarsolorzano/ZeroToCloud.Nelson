@@ -46,8 +46,8 @@ sudo apt install -y firefox-esr
 xdg-settings set default-web-browser firefox-esr.desktop
 
 # Uncomment if you want a display manager for console GUI login:
-# echo "Installing LightDM display manager (optional)..."
-# apt install -y lightdm
+echo "Installing LightDM display manager (optional)..."
+apt install -y lightdm
 
 echo "===== Downloading NoMachine .deb package..."
 cd /tmp
