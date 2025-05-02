@@ -6,4 +6,5 @@ sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/
 sudo apt update -y
 sudo apt install --install-recommends -y winehq-stable
 dpkg --add-architecture i386 && apt-get update && apt-get install -y wine32:i386
+sudo apt install -y winbind
 echo "Done installing Wine. Consider running 'sudo apt install -f' if needed, to fix any broken packages."
