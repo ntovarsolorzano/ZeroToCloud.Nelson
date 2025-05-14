@@ -21,7 +21,7 @@ sudo $PKG update -y
 
 # Install prerequisites for Docker installer (curl comes in handy)
 echo "Ensuring curl is installed..."
-sudo $PKG install -y curl
+sudo $PKG install -y curl --allowerasing
 
 # Install Docker via the official get.docker.com script
 echo "Installing Docker..."
